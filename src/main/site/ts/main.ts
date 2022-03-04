@@ -14,7 +14,11 @@ sun.addEventListener("change", postAndUpdate);
 moon.addEventListener("change", postAndUpdate);
 rising.addEventListener("change", postAndUpdate);
 // TODO: Define a type for the request data object here.
-// type MatchesRequestData = {}
+type MatchesRequestData = {
+  sun: string
+  moon: String
+  rising: String
+}
 
 // TODO: Define a type for the response data object here.
 
