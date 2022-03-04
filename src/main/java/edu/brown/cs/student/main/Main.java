@@ -104,21 +104,27 @@ public final class Main {
    */
   private static class ResultsHandler implements Route {
     @Override
-    public String handle(final Request req, final Response res) throws JSONException {
+    public String handle(final Request req, final Response res) {
       // TODO: Get JSONObject from req and use it to get the value of the sun, moon,
       // and rising
       // for generating matches
-      final JSONObject horoscopeObject = new JSONObject(req.body());
-      final String sun = horoscopeObject.getString("sun");
-      final String moon = horoscopeObject.getString("moon");
-      final String rising = horoscopeObject.getString("rising");
-      // TODO: use the MatchMaker.makeMatches method to get matches
-      final List<String> matches = MatchMaker.makeMatches(sun, moon, rising);
-      // TODO: create an immutable map using the matches
-      final ImmutableMap<String, Object> matchesMap = ImmutableMap.of("matches", matches);
-      // TODO: return a json of the suggestions (HINT: use GSON.toJson())
-      final Gson GSON = new Gson();
-      return GSON.toJson(matchesMap);
+      JSONObject horoscopeObject = null;
+      try {
+        horoscopeObject = new JSONObject(req.body());
+        String sun = horoscopeObject.getString("sun");
+        String moon = horoscopeObject.getString("moon");
+        String rising = horoscopeObject.getString("rising");
+        // TODO: use the MatchMaker.makeMatches method to get matches
+        List<String> matches = MatchMaker.makeMatches(sun, moon, rising);
+        // TODO: create an immutable map using the matches
+        ImmutableMap<String, Object> matchesMap = ImmutableMap.of("matches", matches);
+        // TODO: return a json of the suggestions (HINT: use GSON.toJson())
+        Gson GSON = new Gson();
+        return GSON.toJson(matchesMap);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+      return null;
     }
   }
 }

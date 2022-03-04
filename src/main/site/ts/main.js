@@ -1,6 +1,4 @@
 "use strict";
-// TODO: select the list element where the suggestions should go, and all three dropdown elements
-//  HINT: look at the HTML
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -10,29 +8,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const suggestions = document.getElementById('suggestions');
-const sun = document.getElementById('sun');
-const moon = document.getElementById('moon');
-const rising = document.getElementById('rising');
+let suggestionList = document.querySelector("#suggestions");
 // Here, when the value of sun is changed, we will call the method postAndUpdate.
 // TODO: Do the same for moon and rising
+let sun = document.querySelector("#sun");
 sun.addEventListener("change", postAndUpdate);
+let moon = document.querySelector("#moon");
 moon.addEventListener("change", postAndUpdate);
+let rising = document.querySelector("#rising");
 rising.addEventListener("change", postAndUpdate);
 function postAndUpdate() {
     // TODO: empty the suggestionList (you want new suggestions each time someone types something new)
     //  HINT: use .innerHTML
-    suggestions.innerHTML = '';
+    suggestionList.innerHTML = '';
     // TODO: add a type annotation to make this of type MatchesRequestData
     const postParameters = {
-    // TODO: get the text inside the input box
-    //  HINT: use sun.value to get the value of the sun field, for example
+        sun: sun.value,
+        moon: moon.value,
+        rising: rising.value
+        // TODO: get the text inside the input box
+        //  HINT: use sun.value to get the value of the sun field, for example
     };
-    console.log(postParameters);
     // TODO: make a POST request using fetch to the URL to handle this request you set in your Main.java
     //  HINT: check out the POST REQUESTS section of the lab and of the front-end guide.
     //  Make sure you add "Access-Control-Allow-Origin":"*" to your headers.
     //  Remember to add a type annotation for the response data using the Matches type you defined above!
+    console.log(postParameters);
     fetch("http://localhost:4567/results", {
         method: 'POST',
         headers: { 'Access-Control-Allow-Origin': '*' },
@@ -43,6 +44,9 @@ function postAndUpdate() {
     //  HINT: remember to get the specific field in the JSON you want to use
 }
 function updateSuggestions(matches) {
+    for (let i = 0; i < matches.length; i++) {
+        suggestionList.innerHTML += '<li tabindex=\"i\">' + matches[i] + '</li';
+    }
     // TODO: for each element in the set of matches, append it to the suggestionList
     //  HINT: use innerHTML += to append to the suggestions list
     //  NOTE: you should use <li> (list item) tags to wrap each element. When you do so,
@@ -54,11 +58,12 @@ function updateSuggestions(matches) {
 //  values for the sun, moon, and rising using updateValues. Then call postAndUpdate().
 //  HINT: the listener callback function should be asynchronous and wait until the values are
 //  updated before calling postAndUpdate().
-document.addEventListener("keyup", keyup => {
-    if (keyup.key == "Enter") {
-        updateValues("Sagittarius", "Gemini", "Leo").then(postAndUpdate);
+document.addEventListener("keyup", (keyup) => __awaiter(void 0, void 0, void 0, function* () {
+    if (keyup.key == 's') {
+        yield updateValues("Sagittarius", "Gemini", "Leo");
+        postAndUpdate();
     }
-});
+}));
 function updateValues(sunval, moonval, risingval) {
     return __awaiter(this, void 0, void 0, function* () {
         // This line asynchronously waits 1 second before updating the values.

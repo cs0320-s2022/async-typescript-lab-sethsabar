@@ -1,23 +1,18 @@
-// TODO: select the list element where the suggestions should go, and all three dropdown elements
-//  HINT: look at the HTML
-
-const suggestions = document.getElementById('suggestions') as HTMLInputElement
-const sun = document.getElementById('sun') as HTMLInputElement
-const moon = document.getElementById('moon') as HTMLInputElement
-const rising = document.getElementById('rising') as HTMLInputElement
-
+let suggestionList = document.querySelector("#suggestions") as HTMLInputElement;
 
 // Here, when the value of sun is changed, we will call the method postAndUpdate.
 // TODO: Do the same for moon and rising
-
-sun.addEventListener("change", postAndUpdate);
-moon.addEventListener("change", postAndUpdate);
-rising.addEventListener("change", postAndUpdate);
+let sun = document.querySelector("#sun") as HTMLInputElement;
+sun!.addEventListener("change", postAndUpdate)
+let moon = document.querySelector("#moon") as HTMLInputElement;
+moon!.addEventListener("change", postAndUpdate)
+let rising = document.querySelector("#rising") as HTMLInputElement;
+rising!.addEventListener("change", postAndUpdate)
 // TODO: Define a type for the request data object here.
 type MatchesRequestData = {
   sun: string
-  moon: String
-  rising: String
+  moon: string
+  rising: string
 }
 
 // TODO: Define a type for the response data object here.
@@ -29,21 +24,22 @@ type Matches = {
 function postAndUpdate(): void {
   // TODO: empty the suggestionList (you want new suggestions each time someone types something new)
   //  HINT: use .innerHTML
-  suggestions.innerHTML = '';
+  suggestionList.innerHTML = '';
 
   // TODO: add a type annotation to make this of type MatchesRequestData
-  const postParameters = {
+  const postParameters: MatchesRequestData = {
+    sun: sun.value,
+    moon: moon.value,
+    rising: rising.value
     // TODO: get the text inside the input box
     //  HINT: use sun.value to get the value of the sun field, for example
   };
-
-  console.log(postParameters)
 
   // TODO: make a POST request using fetch to the URL to handle this request you set in your Main.java
   //  HINT: check out the POST REQUESTS section of the lab and of the front-end guide.
   //  Make sure you add "Access-Control-Allow-Origin":"*" to your headers.
   //  Remember to add a type annotation for the response data using the Matches type you defined above!
-
+  console.log(postParameters)
   fetch("http://localhost:4567/results", {
     method: 'POST',
     headers: {'Access-Control-Allow-Origin': '*'},
@@ -56,6 +52,9 @@ function postAndUpdate(): void {
 }
 
 function updateSuggestions(matches: string[]): void {
+  for (let i = 0; i < matches.length; i++) {
+    suggestionList.innerHTML += '<li tabindex=\"i\">' + matches[i] + '</li'
+  }
   // TODO: for each element in the set of matches, append it to the suggestionList
   //  HINT: use innerHTML += to append to the suggestions list
   //  NOTE: you should use <li> (list item) tags to wrap each element. When you do so,
@@ -70,9 +69,10 @@ function updateSuggestions(matches: string[]): void {
 //  updated before calling postAndUpdate().
 
 
-document.addEventListener("keyup", keyup => {
-  if (keyup.key == "Enter") {
-    updateValues("Sagittarius", "Gemini", "Leo").then(postAndUpdate)
+document.addEventListener("keyup", async (keyup: KeyboardEvent) => {
+  if (keyup.key == 's') {
+    await updateValues("Sagittarius", "Gemini", "Leo")
+    postAndUpdate()
   }
 })
 
