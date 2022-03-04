@@ -62,11 +62,11 @@ function postAndUpdate() {
     //  HINT: check out the POST REQUESTS section of the lab and of the front-end guide.
     //  Make sure you add "Access-Control-Allow-Origin":"*" to your headers.
     //  Remember to add a type annotation for the response data using the Matches type you defined above!
-    fetch("http://127.0.0.1:8080/results", {
+    fetch("http://localhost:4567/results", {
         method: 'POST',
         headers: { 'Access-Control-Allow-Origin': '*' },
         body: JSON.stringify(postParameters)
-    }).then(function (r) { return r.json(); }).then(function (r) { return updateSuggestions(r.data); });
+    }).then(function (r) { return r.json(); }).then(function (data) { updateSuggestions(data.matches); });
     // TODO: Call and fill in the updateSuggestions method in one of the .then statements in the Promise
     //  Parse the JSON in the response object
     //  HINT: remember to get the specific field in the JSON you want to use
@@ -88,7 +88,7 @@ function updateSuggestions(matches) {
 //  HINT: the listener callback function should be asynchronous and wait until the values are
 //  updated before calling postAndUpdate().
 document.addEventListener("keyup", function (keyup) {
-    if (keyup.key == "Enter") {
+    if (keyup.key === "Enter") {
         updateValues("Sagittarius", "Gemini", "Leo").then(postAndUpdate);
     }
 });

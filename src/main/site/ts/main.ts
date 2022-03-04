@@ -22,7 +22,7 @@ type MatchesRequestData = {
 
 // TODO: Define a type for the response data object here.
 type Matches = {
-  data: string[]
+  matches: string[]
 }
 
 function postAndUpdate(): void {
@@ -45,11 +45,11 @@ function postAndUpdate(): void {
   //  HINT: check out the POST REQUESTS section of the lab and of the front-end guide.
   //  Make sure you add "Access-Control-Allow-Origin":"*" to your headers.
   //  Remember to add a type annotation for the response data using the Matches type you defined above!
-  fetch("http://127.0.0.1:8080/results", {
+  fetch("http://localhost:4567/results", {
     method: 'POST',
     headers: {'Access-Control-Allow-Origin': '*'},
     body: JSON.stringify(postParameters)
-  }).then(r => r.json()).then((r: Matches) => updateSuggestions(r.data))
+  }).then(r => r.json()).then((data: Matches) => {updateSuggestions(data.matches)})
 
   // TODO: Call and fill in the updateSuggestions method in one of the .then statements in the Promise
   //  Parse the JSON in the response object
@@ -75,7 +75,7 @@ function updateSuggestions(matches: string[]): void {
 //  updated before calling postAndUpdate().
 
 document.addEventListener("keyup", keyup => {
-  if (keyup.key == "Enter") {
+  if (keyup.key === "Enter") {
     updateValues("Sagittarius", "Gemini", "Leo").then(postAndUpdate)
   }
 })
