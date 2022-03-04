@@ -75,7 +75,7 @@ function updateSuggestions(matches: string[]): void {
 //  updated before calling postAndUpdate().
 
 document.addEventListener("keyup", keyup => {
-  if (keyup.key === "Enter") {
+  if (keyup.key == "Enter") {
     updateValues("Sagittarius", "Gemini", "Leo").then(postAndUpdate)
   }
 })
