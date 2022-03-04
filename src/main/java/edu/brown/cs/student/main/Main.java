@@ -60,6 +60,7 @@ public final class Main {
     // will handle getting matchmaking results for the input
     // It should only take in the route and a new ResultsHandler
     Spark.post("/results", new ResultsHandler());
+
     Spark.options("/*", (request, response) -> {
       final String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
       if (accessControlRequestHeaders != null) {
