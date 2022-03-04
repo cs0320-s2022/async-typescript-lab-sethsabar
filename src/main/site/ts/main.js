@@ -36,19 +36,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 // TODO: select the list element where the suggestions should go, and all three dropdown elements
 //  HINT: look at the HTML
-var suggestions = document.getElementById("#suggestions");
-var sun = document.getElementById("#sun");
-var moon = document.getElementById("#moon");
-var rising = document.getElementById("#rising");
+var suggestions = document.getElementById('#suggestions');
+var sun = document.getElementById('#sun');
+var moon = document.getElementById('#moon');
+var rising = document.getElementById('#rising');
 // Here, when the value of sun is changed, we will call the method postAndUpdate.
 // TODO: Do the same for moon and rising
-sun.addEventListener("change", function () { return postAndUpdate(); });
-moon.addEventListener("change", function () { return postAndUpdate(); });
-rising.addEventListener("change", function () { return postAndUpdate(); });
+sun.addEventListener("change", postAndUpdate);
+moon.addEventListener("change", postAndUpdate);
+rising.addEventListener("change", postAndUpdate);
 function postAndUpdate() {
     // TODO: empty the suggestionList (you want new suggestions each time someone types something new)
     //  HINT: use .innerHTML
-    suggestions.innerHTML = "";
+    suggestions.innerHTML = '';
     // TODO: add a type annotation to make this of type MatchesRequestData
     var postParameters = {
         // TODO: get the text inside the input box
@@ -62,11 +62,11 @@ function postAndUpdate() {
     //  HINT: check out the POST REQUESTS section of the lab and of the front-end guide.
     //  Make sure you add "Access-Control-Allow-Origin":"*" to your headers.
     //  Remember to add a type annotation for the response data using the Matches type you defined above!
-    fetch("http://localhost:4567/results", {
+    fetch("http://127.0.0.1:8080/results", {
         method: 'POST',
-        headers: { "Access-Control-Allow-Origin": "*" },
+        headers: { 'Access-Control-Allow-Origin': '*' },
         body: JSON.stringify(postParameters)
-    }).then(function (r) { return r.json(); }).then(function (r) { return updateSuggestions(r.matches); });
+    }).then(function (r) { return r.json(); }).then(function (r) { return updateSuggestions(r.data); });
     // TODO: Call and fill in the updateSuggestions method in one of the .then statements in the Promise
     //  Parse the JSON in the response object
     //  HINT: remember to get the specific field in the JSON you want to use
@@ -89,7 +89,7 @@ function updateSuggestions(matches) {
 //  updated before calling postAndUpdate().
 document.addEventListener("keyup", function (keyup) {
     if (keyup.key == "Enter") {
-        updateValues("Sagittarius", "Gemini", "Leo").then(function () { return postAndUpdate(); });
+        updateValues("Sagittarius", "Gemini", "Leo").then(postAndUpdate);
     }
 });
 function updateValues(sunval, moonval, risingval) {
