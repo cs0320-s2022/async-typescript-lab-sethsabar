@@ -1,5 +1,10 @@
 // TODO: select the list element where the suggestions should go, and all three dropdown elements
 //  HINT: look at the HTML
+const matches = document.getElementById("suggestions") as HTMLInputElement
+const matches = document.getElementById("suggestions") as HTMLInputElement
+const matches = document.getElementById("suggestions")
+const matches = document.getElementById("suggestions")
+
 
 // Here, when the value of sun is changed, we will call the method postAndUpdate.
 // TODO: Do the same for moon and rising
