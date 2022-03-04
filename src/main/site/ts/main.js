@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 // TODO: select the list element where the suggestions should go, and all three dropdown elements
 //  HINT: look at the HTML
-const suggestions = document.getElementById('#suggestions');
-const sun = document.getElementById('#sun');
-const moon = document.getElementById('#moon');
-const rising = document.getElementById('#rising');
+const suggestions = document.getElementById('suggestions');
+const sun = document.getElementById('sun');
+const moon = document.getElementById('moon');
+const rising = document.getElementById('rising');
 // Here, when the value of sun is changed, we will call the method postAndUpdate.
 // TODO: Do the same for moon and rising
 sun.addEventListener("change", postAndUpdate);

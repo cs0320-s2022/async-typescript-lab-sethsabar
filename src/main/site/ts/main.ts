@@ -1,9 +1,9 @@
 // TODO: select the list element where the suggestions should go, and all three dropdown elements
 //  HINT: look at the HTML
-const suggestions = document.getElementById('#suggestions') as HTMLInputElement
-const sun = document.getElementById('#sun') as HTMLInputElement
-const moon = document.getElementById('#moon') as HTMLInputElement
-const rising = document.getElementById('#rising') as HTMLInputElement
+const suggestions = document.getElementById('suggestions') as HTMLInputElement
+const sun = document.getElementById('sun') as HTMLInputElement
+const moon = document.getElementById('moon') as HTMLInputElement
+const rising = document.getElementById('rising') as HTMLInputElement
 
 
 // Here, when the value of sun is changed, we will call the method postAndUpdate.
